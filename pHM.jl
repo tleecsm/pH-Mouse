@@ -5,16 +5,18 @@
 #      @date 9/27/2018      #
 #############################
 
+# Initialize Room Size
+rSize = 100
+# Initialize Canvas Size
+cSize = rSize*5
+
 # Initialize Luxor
 println("!Initializing Luxor Package!")
 using Luxor
 println("!Luxor Initialized!")
-Drawing(1250, 1250, "images/pHM.png")
+Drawing(cSize, cSize, "images/pHM.png")
 origin()
 background("white")
-
-# Initialize Room Size
-rSize = 250
 
 # Initialize Table and digits
 table = Table(5, 5, rSize, rSize) # 5 rows, 5 columns, 50 wide, 35 high
