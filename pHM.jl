@@ -14,6 +14,8 @@ println("!DATA IMPORTED SUCCESSFULLY!")
 Arows = size(A)[1]
 Acols = size(A)[2]
 
+iterations = 100
+
 # Create an empty matrix we can concat with
 # The columns we want are the pivot columns
 probMatrix = zeros(Arows*Acols,Arows*Acols)
@@ -42,11 +44,11 @@ for i=1:Arows       # 1 < i < rows
         # Check if the current room is a wall, or cheese
         if (string(currentRoomString[length(currentRoomString)]) == "W")
             # Current Room is a wall
-            break;
+            continue
         elseif (string(currentRoomString[length(currentRoomString)]) == "C")
             # Current Room is cheese
             probMatrix[currentRoomNumber,currentRoomNumber] = 1.0
-            break;
+            continue
         end
         # Check how many neighbors A[i,j] has
         # A[i,j] has neighbors at --
@@ -122,18 +124,35 @@ for i=1:Arows       # 1 < i < rows
     end
 end
 
+# We now have a probability matrix for our maze
+# Create some an input for it
+x = zeros(Arows*Acols,1)
+x[5] = 10
+
+# Use the following code segment to print the probMatrix
+# For debugging purposes only
 
 for i=1:25
-    print("Row [")
-    for j=1:25
+    print("Row $i:\t [")
+    for j=1:15
         print(probMatrix[i,j])
         print(", ")
     end
     println("]")
-
 end
 
 
+#=
+# Run the simulation
+for i=1:iterations
+    global x
+    global probMatrix
+    x = probMatrix*x
+    println(x)
+end
+=#
+
+println(x)
 
 #=
 # Initialize Room Size in pixels
