@@ -146,7 +146,7 @@ end
 rSize = 100
 # Initialize Canvas Size
 cSize = rSize*5
-println("!INITIALIZING LUXOR PACKAGE!")
+println("!INITIALIZING LUXOR!")
 using Luxor
 Drawing(cSize, cSize, "images/pHM.png")
 origin()
@@ -154,6 +154,9 @@ background("white")
 # Initialize Table and digits
 table = Table(Arows, Acols, rSize, rSize)
 println("!LUXOR INITIALIZED!")
+println("!INITIALIZING COLORSCHEMES!")
+using Colors, ColorSchemes
+println("!COLORSCHEMES INITIALIZED!")
 # Start creating the image
 sethue("black")
 # Loop through each room of the maze and print it to the image
@@ -168,7 +171,7 @@ for i in 1:length(table)
     text(A[i], table[i], halign=:center, valign=:middle)
     box.(table[i], rSize, rSize, :stroke)
     if (i%5 == 1)
-        sethue("brown1")
+        sethue(get(ColorSchemes.rainbow, 1/i))
         setmode("darken")   # Set mode to darken to ensure text isnt covered
         box.(table[i], rSize, rSize, :fill)
         sethue("black")
