@@ -37,8 +37,6 @@ for i=1:Arows       # 1 < i < rows
         tempString = ""
         tempRoomNumber = 0
         currentRoomString = A[i,j]
-        println(currentRoomString)
-        println(currentRoomString[length(currentRoomString)])
         currentRoomNumber = chop(currentRoomString)
         currentRoomNumber = parse(Int64,currentRoomNumber)
         # Check if the current room is a wall, or cheese
@@ -131,7 +129,7 @@ x[5] = 10
 
 # Use the following code segment to print the probMatrix
 # For debugging purposes only
-
+#=
 for i=1:25
     print("Row $i:\t [")
     for j=1:15
@@ -140,18 +138,20 @@ for i=1:25
     end
     println("]")
 end
+=#
 
 
-#=
 # Run the simulation
+println("!INITIAL INPUT!")
+println(x)
+println("!STARTING SIMULATION!")
 for i=1:iterations
     global x
     global probMatrix
     x = probMatrix*x
-    println(x)
 end
-=#
-
+println("!SIMULATION COMPLETE!")
+println("!FINAL OUTPUT!")
 println(x)
 
 #=
