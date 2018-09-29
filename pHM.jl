@@ -25,6 +25,17 @@ for i=1:Arows       # 1 < i < rows
         global B
         tempString = ""
         tempRoomNumber = 0
+        currentRoomString = A[i,j]
+        println(currentRoomString)
+        println(currentRoomString[length(currentRoomString)])
+        currentRoomNumber = chop(currentRoomString)
+        currentRoomNumber = parse(Int64,currentRoomNumber)
+        # Check if the current room is a wall, or cheese
+        if (string(currentRoomString[length(currentRoomString)]) == "W")
+            println("WALL")
+        elseif (string(currentRoomString[length(currentRoomString)]) == "C")
+            println("CHEESE")
+        end
         # Check how many neighbors A[i,j] has
         # A[i,j] has neighbors at --
         # A[i+1,j], A[i-1,j], A[i,j+1], A[i,j-1]
