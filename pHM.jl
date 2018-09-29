@@ -14,7 +14,7 @@ println("!DATA IMPORTED SUCCESSFULLY!")
 Arows = size(A)[1]
 Acols = size(A)[2]
 
-iterations = 100
+iterations = 1000
 
 # Create an empty matrix we can concat with
 # The columns we want are the pivot columns
@@ -130,7 +130,8 @@ x[5] = 10
 # Use the following code segment to print the probMatrix
 # For debugging purposes only
 #=
-for i=1:25
+sizeProbMatrix = size(probMatrix)
+for i=1:sizeProbMatrix[1]
     print("Row $i:\t [")
     for j=1:15
         print(probMatrix[i,j])
@@ -140,6 +141,38 @@ for i=1:25
 end
 =#
 
+# Complete Luxor Initialization
+# Initialize Room Size in pixels
+rSize = 100
+# Initialize Canvas Size
+cSize = rSize*5
+println("!INITIALIZING LUXOR PACKAGE!")
+using Luxor
+Drawing(cSize, cSize, "images/pHM.png")
+origin()
+background("white")
+# Initialize Table and digits
+table = Table(Arows, Acols, rSize, rSize)
+println("!LUXOR INITIALIZED!")
+# Start creating the image
+sethue("black")
+# Loop through each room of the maze and print it to the image
+for i in 1:length(table)
+    if (string(A[i][length(A[i])]) == "W")
+        # If the current room is a wall make it grey
+        sethue("grey70")
+        box.(table[i], rSize, rSize, :fill)
+        sethue("black")
+    end
+    # Put a black border on the room and print its name in the middle
+    text(A[i], table[i], halign=:center, valign=:middle)
+    box.(table[i], rSize, rSize, :stroke)
+end
+
+# Finish the image
+println("!PRINTING OUTPUT IMAGE!")
+finish()
+println("!PRINTING COMPLETED!")
 
 # Run the simulation
 println("!INITIAL INPUT!")
@@ -155,28 +188,9 @@ println("!FINAL OUTPUT!")
 println(x)
 
 #=
-# Initialize Room Size in pixels
-rSize = 100
-# Initialize Canvas Size
-cSize = rSize*5
-
-# Initialize Luxor
-println("!INITIALIZING LUXOR PACKAGE!")
-using Luxor
-println("!LUXOR INITIALIZED!")
-Drawing(cSize, cSize, "images/pHM.png")
-origin()
-background("white")
-
 # Initialize Table and digits
 table = Table(5, 5, rSize, rSize) # 5 rows, 5 columns, 50 wide, 35 high
 digits = 1:25
-
-# Print black text in the grid
-sethue("black")
-for n in 1:length(table)
-   text(string(digits[n]), table[n], halign=:center, valign=:middle)
-end
 
 # Print black borders on each of the grid boxes
 setopacity(1.0)
