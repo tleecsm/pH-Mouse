@@ -171,7 +171,7 @@ for i in 1:length(table)
     text(A[i], table[i], halign=:center, valign=:middle)
     box.(table[i], rSize, rSize, :stroke)
     if (i%5 == 1)
-        sethue(get(ColorSchemes.rainbow, 1/i))
+        sethue(get(ColorSchemes.temperaturemap, 1/i))
         setmode("darken")   # Set mode to darken to ensure text isnt covered
         box.(table[i], rSize, rSize, :fill)
         sethue("black")
