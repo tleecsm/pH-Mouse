@@ -22,7 +22,16 @@ probMatrix = zeros(Arows*Acols,Arows*Acols)
 for i=1:Arows       # 1 < i < rows
     for j=1:Acols   # 1 < j < cols
         global A
-        global B
+        global probMatrix
+        up = false
+        down = false
+        right = false
+        left = false
+        upDigit = 0
+        downDigit = 0
+        leftDigit = 0
+        rightDigit = 0
+        probCounter = 0
         tempString = ""
         tempRoomNumber = 0
         currentRoomString = A[i,j]
@@ -32,9 +41,12 @@ for i=1:Arows       # 1 < i < rows
         currentRoomNumber = parse(Int64,currentRoomNumber)
         # Check if the current room is a wall, or cheese
         if (string(currentRoomString[length(currentRoomString)]) == "W")
-            println("WALL")
+            # Current Room is a wall
+            break;
         elseif (string(currentRoomString[length(currentRoomString)]) == "C")
-            println("CHEESE")
+            # Current Room is cheese
+            probMatrix[currentRoomNumber,currentRoomNumber] = 1.0
+            break;
         end
         # Check how many neighbors A[i,j] has
         # A[i,j] has neighbors at --
@@ -46,29 +58,80 @@ for i=1:Arows       # 1 < i < rows
             tempString = A[i-1,j]
             # Get the room number from this neighbor
             tempRoomNumber = chop(tempString)
+            # Ensure this room isnt a wall
+            if (string(tempString[length(tempString)]) != "W")
+                # We can enter this room
+                probCounter += 1
+                up = true
+                upDigit = parse(Int64,tempRoomNumber)
+            end
         end
         if i != Arows
             # We are not on the last row, increase row
             tempString = A[i+1,j]
             # Get the room number from this neighbor
             tempRoomNumber = chop(tempString)
+            # Ensure this room isnt a wall
+            if (string(tempString[length(tempString)]) != "W")
+                # We can enter this room
+                probCounter += 1
+                down = true
+                downDigit = parse(Int64,tempRoomNumber)
+            end
         end
         if j != 1
             # We are not on the first col, decrease col
             tempString = A[i,j-1]
             # Get the room number from this neighbor
             tempRoomNumber = chop(tempString)
+            # Ensure this room isnt a wall
+            if (string(tempString[length(tempString)]) != "W")
+                # We can enter this room
+                probCounter += 1
+                left = true
+                leftDigit = parse(Int64,tempRoomNumber)
+            end
         end
         if j != Acols
-            # We are not on the top row, decrease row
+            # We are not on the last col, increase col
             tempString = A[i,j+1]
             # Get the room number from this neighbor
             tempRoomNumber = chop(tempString)
+            # Ensure this room isnt a wall
+            if (string(tempString[length(tempString)]) != "W")
+                # We can enter this room
+                probCounter += 1
+                right = true
+                rightDigit = parse(Int64,tempRoomNumber)
+            end
+        end
+        # Create this rooms column in the probability matrix
+        if (up)
+            # We can go up
+            probMatrix[upDigit,currentRoomNumber] = 1/probCounter
+        end
+        if (down)
+            probMatrix[downDigit,currentRoomNumber] = 1/probCounter
+        end
+        if (left)
+            probMatrix[leftDigit,currentRoomNumber] = 1/probCounter
+        end
+        if (right)
+            probMatrix[rightDigit,currentRoomNumber] = 1/probCounter
         end
     end
 end
 
 
+for i=1:25
+    print("Row [")
+    for j=1:25
+        print(probMatrix[i,j])
+        print(", ")
+    end
+    println("]")
+
+end
 
 
 
