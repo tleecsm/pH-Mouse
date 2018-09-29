@@ -167,6 +167,13 @@ for i in 1:length(table)
     # Put a black border on the room and print its name in the middle
     text(A[i], table[i], halign=:center, valign=:middle)
     box.(table[i], rSize, rSize, :stroke)
+    if (i%5 == 1)
+        sethue("brown1")
+        setmode("darken")   # Set mode to darken to ensure text isnt covered
+        box.(table[i], rSize, rSize, :fill)
+        sethue("black")
+        setmode("source")
+    end
 end
 
 # Finish the image
