@@ -57,6 +57,59 @@ pH-Mouse will generate several different files and an additional folder on your 
   - This file is the output of pH-Mouse
   - It is a .gif that shows the complete heatmap output of the probability manipulation for the maze.
 ### Examples
-The following are example .gifs created with pH-Mouse along with the runtime preferences used to generate them:
-`input1room2.gif`
+The following are example .gifs created with pH-Mouse along with the runtime preferences used to generate them:  
+  
+`input1room2.gif`  
 ![input1room2.gif](https://github.com/tleecsm/pH-Mouse/blob/master/examples/input1room2.gif?raw=true)
+```
+Which input number would you like to load?      1
+How many iterations would you like to run?      100
+Which room would you like to start in?          2
+Enter an intensity for the heatmap {1-10}:      2
+```  
+  
+`input1room18.gif`  
+![input1room18.gif](https://github.com/tleecsm/pH-Mouse/blob/master/examples/input1room15.gif?raw=true)
+```
+Which input number would you like to load?      1
+How many iterations would you like to run?      100
+Which room would you like to start in?          18
+Enter an intensity for the heatmap {1-10}:      2
+```  
+  
+`input1room25.gif`  
+![input1room25.gif](https://github.com/tleecsm/pH-Mouse/blob/master/examples/input1room25.gif?raw=true)
+```
+Which input number would you like to load?      1
+How many iterations would you like to run?      100
+Which room would you like to start in?          25
+Enter an intensity for the heatmap {1-10}:      2
+```   
+  
+`input2room18.gif`  
+![input2room18.gif](https://github.com/tleecsm/pH-Mouse/blob/master/examples/input2room18.gif?raw=true)
+```
+Which input number would you like to load?      2
+How many iterations would you like to run?      250
+Which room would you like to start in?          18
+Enter an intensity for the heatmap {1-10}:      4
+```  
+  
+`input2room23.gif`  
+![input2room23.gif](https://github.com/tleecsm/pH-Mouse/blob/master/examples/input2room23.gif?raw=true)
+```
+Which input number would you like to load?      2
+How many iterations would you like to run?      250
+Which room would you like to start in?          23
+Enter an intensity for the heatmap {1-10}:      4
+```  
+  
+`input2room81.gif`  
+![input2room81.gif](https://github.com/tleecsm/pH-Mouse/blob/master/examples/input2room81.gif?raw=true)
+```
+Which input number would you like to load?      2
+How many iterations would you like to run?      250
+Which room would you like to start in?          81
+Enter an intensity for the heatmap {1-10}:      4
+```  
+  
