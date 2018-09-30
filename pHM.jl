@@ -8,11 +8,23 @@
 # Start by loading the initializing data in memory
 using DelimitedFiles
 println("!IMPORTING DATA FROM input.phm!")
-A = readdlm("input.phm", String)
+A = readdlm("input2.phm", String)
 println("!DATA IMPORTED SUCCESSFULLY!")
 
 Arows = size(A)[1]
 Acols = size(A)[2]
+
+# Create the transpose manually
+# Julia cannot transpose a string matrix
+Atrans = Array{String}(undef, Arows, Acols)
+for i=1:Arows
+    for j=1:Acols
+        Atrans[j,i] = A[i,j]
+    end
+end
+
+println(A)
+println(Atrans)
 
 iterations = 1000
 
@@ -145,7 +157,7 @@ end
 # Initialize Room Size in pixels
 rSize = 100
 # Initialize Canvas Size
-cSize = rSize*5
+cSize = rSize*Arows
 println("!INITIALIZING LUXOR!")
 using Luxor
 Drawing(cSize, cSize, "images/pHM.png")
@@ -161,41 +173,40 @@ println("!COLORSCHEMES INITIALIZED!")
 sethue("black")
 # Loop through each room of the maze and print it to the image
 for i in 1:length(table)
-    if (string(A[i][length(A[i])]) == "W")
+    if (string(Atrans[i][length(Atrans[i])]) == "W")
         # If the current room is a wall make it grey
-        sethue("grey70")
         box.(table[i], rSize, rSize, :fill)
-        sethue("black")
     end
     # Put a black border on the room and print its name in the middle
-    text(A[i], table[i], halign=:center, valign=:middle)
+    text(Atrans[i], table[i], halign=:center, valign=:middle)
     box.(table[i], rSize, rSize, :stroke)
-    if (i%5 == 1)
-        sethue(get(ColorSchemes.temperaturemap, 1/i))
-        setmode("darken")   # Set mode to darken to ensure text isnt covered
-        box.(table[i], rSize, rSize, :fill)
-        sethue("black")
-        setmode("source")
-    end
+end
+
+# Run the simulation
+println("!INITIAL INPUT!")
+println(x)
+println("!STARTING SIMULATION!")
+
+for i=1:iterations
+    global x
+    global probMatrix
+    x = probMatrix*x
+end
+
+println("!SIMULATION COMPLETE!")
+println("!FINAL OUTPUT!")
+println(x)
+
+for i=1:length(x)
+    sethue(get(ColorSchemes.YlOrRd_7, x[i]))
+    setmode("darken")   # Set mode to darken to ensure text isnt covered
+    box.(table[i], rSize, rSize, :fill)
 end
 
 # Finish the image
 println("!PRINTING OUTPUT IMAGE!")
 finish()
 println("!PRINTING COMPLETED!")
-
-# Run the simulation
-println("!INITIAL INPUT!")
-println(x)
-println("!STARTING SIMULATION!")
-for i=1:iterations
-    global x
-    global probMatrix
-    x = probMatrix*x
-end
-println("!SIMULATION COMPLETE!")
-println("!FINAL OUTPUT!")
-println(x)
 
 #=
 # Initialize Table and digits
