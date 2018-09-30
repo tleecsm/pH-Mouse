@@ -68,6 +68,8 @@ Which room would you like to start in?          2
 Enter an intensity for the heatmap {1-10}:      2
 ```  
   
+---
+    
 `input1room18.gif`  
 ![input1room18.gif](https://github.com/tleecsm/pH-Mouse/blob/master/examples/input1room15.gif?raw=true)
 ```
@@ -76,6 +78,8 @@ How many iterations would you like to run?      100
 Which room would you like to start in?          18
 Enter an intensity for the heatmap {1-10}:      2
 ```  
+  
+---
   
 `input1room25.gif`  
 ![input1room25.gif](https://github.com/tleecsm/pH-Mouse/blob/master/examples/input1room25.gif?raw=true)
@@ -86,6 +90,8 @@ Which room would you like to start in?          25
 Enter an intensity for the heatmap {1-10}:      2
 ```   
   
+---
+  
 `input2room18.gif`  
 ![input2room18.gif](https://github.com/tleecsm/pH-Mouse/blob/master/examples/input2room18.gif?raw=true)
 ```
@@ -94,6 +100,8 @@ How many iterations would you like to run?      250
 Which room would you like to start in?          18
 Enter an intensity for the heatmap {1-10}:      4
 ```  
+  
+---
   
 `input2room23.gif`  
 ![input2room23.gif](https://github.com/tleecsm/pH-Mouse/blob/master/examples/input2room23.gif?raw=true)
@@ -104,6 +112,8 @@ Which room would you like to start in?          23
 Enter an intensity for the heatmap {1-10}:      4
 ```  
   
+---
+  
 `input2room81.gif`  
 ![input2room81.gif](https://github.com/tleecsm/pH-Mouse/blob/master/examples/input2room81.gif?raw=true)
 ```
@@ -112,4 +122,6 @@ How many iterations would you like to run?      250
 Which room would you like to start in?          81
 Enter an intensity for the heatmap {1-10}:      4
 ```  
+  
+---
   
