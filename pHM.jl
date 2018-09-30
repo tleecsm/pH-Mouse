@@ -8,7 +8,7 @@
 # Start by loading the initializing data in memory
 using DelimitedFiles
 println("!IMPORTING DATA FROM input.phm!")
-A = readdlm("input2.phm", String)
+A = readdlm("input.phm", String)
 println("!DATA IMPORTED SUCCESSFULLY!")
 
 Arows = size(A)[1]
@@ -26,7 +26,7 @@ end
 println(A)
 println(Atrans)
 
-iterations = 100
+iterations = 250
 
 # Create an empty matrix we can concat with
 # The columns we want are the pivot columns
@@ -160,44 +160,16 @@ global rSize = 100
 global cSize = rSize*Arows
 println("!INITIALIZING LUXOR!")
 using Luxor
-#Drawing(cSize, cSize, "images/pHM")
 animation = Movie(cSize, cSize, "pHM", 1:iterations)
-#origin()
-#background("white")
-# Initialize Table and digits
-#table = Table(Arows, Acols, rSize, rSize)
 println("!LUXOR INITIALIZED!")
 println("!INITIALIZING COLORSCHEMES!")
 using Colors, ColorSchemes
 println("!COLORSCHEMES INITIALIZED!")
 
-#=
-# Start creating the image
-sethue("black")
-# Loop through each room of the maze and print it to the image
-for i in 1:length(table)
-    if (string(Atrans[i][length(Atrans[i])]) == "W")
-        # If the current room is a wall make it grey
-        box.(table[i], rSize, rSize, :fill)
-    end
-    # Put a black border on the room and print its name in the middle
-    text(Atrans[i], table[i], halign=:center, valign=:middle)
-    box.(table[i], rSize, rSize, :stroke)
-end
-=#
-
 # Run the simulation
 println("!INITIAL INPUT!")
 println(x)
 println("!STARTING SIMULATION!")
-
-#=
-for i=1:iterations
-    global x
-    global probMatrix
-    x = probMatrix*x
-end
-=#
 
 function backdrop(scene, framenumber)
     background("white")
@@ -233,41 +205,11 @@ animate(animation, [
     Scene(animation, backdrop, 0:iterations),
     Scene(animation, frame, 0:iterations)],
     creategif=true,
+    framerate=20,
     pathname="./images/pHM.gif",
     tempdirectory="./tmp")
 
 println("!SIMULATION COMPLETE!")
 println("!FINAL OUTPUT!")
-
-#=
-for i=1:length(x)
-    sethue(get(ColorSchemes.YlOrRd_7, x[i]))
-    setmode("darken")   # Set mode to darken to ensure text isnt covered
-    box.(table[i], rSize, rSize, :fill)
-end
-=#
-
-#=
-# Finish the image
-println("!PRINTING OUTPUT IMAGE!")
-finish()
-println("!PRINTING COMPLETED!")
-=#
-
-#=
-# Initialize Table and digits
-table = Table(5, 5, rSize, rSize) # 5 rows, 5 columns, 50 wide, 35 high
-digits = 1:25
-
-# Print black borders on each of the grid boxes
-setopacity(1.0)
-sethue("black")
-for index in table
-    box.(index[1], rSize, rSize, :stroke) # row 3, every column
-end
-
-# Finish the image
-println("!PRINTING OUTPUT IMAGE!")
-finish()
-println("!PRINTING COMPLETED!")
-=#
+println(x)
+println()
