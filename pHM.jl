@@ -26,7 +26,7 @@ end
 println(A)
 println(Atrans)
 
-iterations = 1000
+iterations = 100
 
 # Create an empty matrix we can concat with
 # The columns we want are the pivot columns
@@ -155,20 +155,23 @@ end
 
 # Complete Luxor Initialization
 # Initialize Room Size in pixels
-rSize = 100
+global rSize = 100
 # Initialize Canvas Size
-cSize = rSize*Arows
+global cSize = rSize*Arows
 println("!INITIALIZING LUXOR!")
 using Luxor
-Drawing(cSize, cSize, "images/pHM.png")
-origin()
-background("white")
+#Drawing(cSize, cSize, "images/pHM")
+animation = Movie(cSize, cSize, "pHM", 1:iterations)
+#origin()
+#background("white")
 # Initialize Table and digits
-table = Table(Arows, Acols, rSize, rSize)
+#table = Table(Arows, Acols, rSize, rSize)
 println("!LUXOR INITIALIZED!")
 println("!INITIALIZING COLORSCHEMES!")
 using Colors, ColorSchemes
 println("!COLORSCHEMES INITIALIZED!")
+
+#=
 # Start creating the image
 sethue("black")
 # Loop through each room of the maze and print it to the image
@@ -181,32 +184,75 @@ for i in 1:length(table)
     text(Atrans[i], table[i], halign=:center, valign=:middle)
     box.(table[i], rSize, rSize, :stroke)
 end
+=#
 
 # Run the simulation
 println("!INITIAL INPUT!")
 println(x)
 println("!STARTING SIMULATION!")
 
+#=
 for i=1:iterations
     global x
     global probMatrix
     x = probMatrix*x
 end
+=#
+
+function backdrop(scene, framenumber)
+    background("white")
+    # Initialize Table and digits
+    global table = Table(Arows, Acols, rSize, rSize)
+    sethue("black")
+    # Loop through each room of the maze and print it to the image
+    for i in 1:length(table)
+        if (string(Atrans[i][length(Atrans[i])]) == "W")
+            # If the current room is a wall make it grey
+            box.(table[i], rSize, rSize, :fill)
+        end
+        # Put a black border on the room and print its name in the middle
+        text(Atrans[i], table[i], halign=:center, valign=:middle)
+        box.(table[i], rSize, rSize, :stroke)
+    end
+end
+
+function frame(scene, framenumber)
+    global table
+    global rSize
+    global x
+    global probMatrix
+    x = probMatrix*x
+    for i=1:length(x)
+        sethue(get(ColorSchemes.YlOrRd_7, x[i]))
+        setmode("darken")   # Set mode to darken to ensure text isnt covered
+        box.(table[i], rSize, rSize, :fill)
+    end
+end
+
+animate(animation, [
+    Scene(animation, backdrop, 0:iterations),
+    Scene(animation, frame, 0:iterations)],
+    creategif=true,
+    pathname="./images/pHM.gif",
+    tempdirectory="./tmp")
 
 println("!SIMULATION COMPLETE!")
 println("!FINAL OUTPUT!")
-println(x)
 
+#=
 for i=1:length(x)
     sethue(get(ColorSchemes.YlOrRd_7, x[i]))
     setmode("darken")   # Set mode to darken to ensure text isnt covered
     box.(table[i], rSize, rSize, :fill)
 end
+=#
 
+#=
 # Finish the image
 println("!PRINTING OUTPUT IMAGE!")
 finish()
 println("!PRINTING COMPLETED!")
+=#
 
 #=
 # Initialize Table and digits
