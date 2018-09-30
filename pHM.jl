@@ -7,8 +7,20 @@
 
 # Start by loading the initializing data in memory
 using DelimitedFiles
-println("!IMPORTING DATA FROM input.phm!")
-A = readdlm("input.phm", String)
+print("Which input number would you like to load? \t")
+input = readline(stdin)
+print("How many iterations would you like to run? \t")
+iterations = readline(stdin)
+iterations = parse(Int64, iterations)
+print("Which room would you like to start in? \t\t")
+startingLocation = readline(stdin)
+startingLocation = parse(Int64, startingLocation)
+print("Enter an intensity for the heatmap {1-10}: \t")
+intensity = readline(stdin)
+intensity = parse(Int64, intensity)
+input = "input" * input * ".phm"
+println("!IMPORTING DATA FROM $input !")
+A = readdlm(input, String)
 println("!DATA IMPORTED SUCCESSFULLY!")
 
 Arows = size(A)[1]
@@ -25,8 +37,6 @@ end
 
 println(A)
 println(Atrans)
-
-iterations = 250
 
 # Create an empty matrix we can concat with
 # The columns we want are the pivot columns
@@ -137,7 +147,7 @@ end
 # We now have a probability matrix for our maze
 # Create some an input for it
 x = zeros(Arows*Acols,1)
-x[5] = 10
+x[startingLocation] = intensity
 
 # Use the following code segment to print the probMatrix
 # For debugging purposes only
@@ -193,12 +203,12 @@ function frame(scene, framenumber)
     global rSize
     global x
     global probMatrix
-    x = probMatrix*x
     for i=1:length(x)
         sethue(get(ColorSchemes.YlOrRd_7, x[i]))
         setmode("darken")   # Set mode to darken to ensure text isnt covered
         box.(table[i], rSize, rSize, :fill)
     end
+    x = probMatrix*x
 end
 
 animate(animation, [
