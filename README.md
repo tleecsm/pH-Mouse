@@ -133,6 +133,6 @@ Each of the gifs can be used to answer several questions.  Consider the followin
   - The best starting room to find the cheese will always be the room immediately next to the cheese room.  As for a worst room, each maze's worst room can be found by traversing as many squares away from the cheese as possible.  
 3. What are transition vectors for 10 multiplications for each room?
   - Attached below is an image generated from the 10th multiplication of the transition matrix, where one mouse was placed in each room at the start.
-  ![iteration.png](https://imgur.com/a/lzRGqj5)
+  ![iteration.png](https://i.imgur.com/jtWJeBi.png)
 4. How would we be able to tell if there was larning happening by using real mice?
   - We could tell if a real mouse was learning by repeating traversal of the same maze several times.  As the mouse enters successive runs of the maze, its path should deviate significantly from the expected paths shown by pH-Mouse.  If a mouse were to continue to replicate the results of this program's output, it certainly would not be learning.
